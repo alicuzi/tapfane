@@ -1,1 +1,5 @@
+The demo data set contains data from the following sources: 
+PM10 concentration near real-time data: European Environmental Agency (EEA), 2024. Air Quality Download Service, https://eeadmz1-downloads-webapp.azurewebsites.net/
+PM10 concentration forecast: Copernicus Atmosphere Monitoring Service (2020): CAMS European air quality forecasts. Copernicus Atmosphere Monitoring Service (CAMS) Atmosphere Data Store, DOI: 10.24381/a4005cee, https://ads.atmosphere.copernicus.eu/datasets/cams-europe-air-quality-forecasts?tab=download
+Meteorological variables forecast (Temperature at 2 m, U and V components of the wind, Boundary Layer Height, Mean Sea Level Pressure, Total Precipitation): Copernicus Atmosphere Monitoring Service (2021): CAMS global atmospheric composition forecasts. Copernicus Atmosphere Monitoring Service (CAMS) Atmosphere Data Store, DOI: 10.24381/04a0b097, https://ads.atmosphere.copernicus.eu/datasets/cams-global-atmospheric-composition-forecasts?tab=download
 
