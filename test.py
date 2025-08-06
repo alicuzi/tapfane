@@ -15,6 +15,7 @@ __status__ = "Production"
 import torch
 import torch.nn as nn
 from torch import optim
+from torch.utils.data import DataLoader
 import os
 import time
 import numpy as np
@@ -23,6 +24,8 @@ import matplotlib.pyplot as plt
 ''' Local Libraries '''
 from model.crossformer import Crossformer
 from utils.metrics import metric
+from utils.spatial import spatial_stats
+from data_manager.data_framer import EvalStationDataset
 
 class Eval(object):
     def __init__(self, args):
@@ -34,8 +37,6 @@ class Eval(object):
 
         ''' upload weights '''
         self.pretrained_model.load_state_dict(torch.load(self.args.path_to_pretrained))
-        # self.model = self.pretrained_model # temp variable
-        # self.updated_model = self.pretrained_model # model to update with new training
 
     def _acquire_device(self):
         if self.args.use_gpu:
@@ -63,13 +64,14 @@ class Eval(object):
                             ).float()
         return model
 
-    # def _load_model(self, model_path):
-    #     '''
-    #     load weights from pretrained model
-    #     '''
-    #     # self.model.load_state_dict(torch.load(os.path.join(self.args.model_path, self.args.trained_model)))
-    #     self.model.load_state_dict(torch.load(model_path))
-    #     return 
+    def _load_data(self,date):
+        sp_stats = spatial_stats(self.meta)
+        data = EvalStationDataset(self.args, sp_stats,date)
+        data_loader = DataLoader(data,
+                                batch_size=self.batch_size,
+                                shuffle=False,
+                                drop_last=True)
+        return data_loader
 
     def test(self, test_loader):
         test_steps = len(test_loader)
