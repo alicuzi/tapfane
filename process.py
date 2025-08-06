@@ -29,8 +29,15 @@ import numpy as np
 from parameters import create_param_grid, Configuration
 from data_manager.data_loader import collect_datasets, create_loaders
 from training import Training
-from test import Test
+from test import Eval
 
+start = {'year' : 2024,
+         'month' : 1,
+         'day' : 1}
+
+end = {'year' : 2024,
+       'month' : 12,
+       'day' : 4}
 
 def main():
     fix_seed = 2025
@@ -41,32 +48,34 @@ def main():
     
     ''' Parser '''
     parser = argparse.ArgumentParser(description='Adapted Crossformer process')
-    parser.add_argument('--task', type=str, default='train', help='definition of task (train,test,eval)')
+    parser.add_argument('--task', type=str, default='train', help='definition of task (train,eval)')
+    parser.add_argument('--start_date',type=dict,default=start)
+    parser.add_argument('--end_date',type=dict,default=end)
 
     args = parser.parse_args()
 
-    param_grid = create_param_grid()
-    
-    for para in param_grid:
-        config = Configuration(para)
+    if args.task == 'train':
+        param_grid = create_param_grid()
+        
+        for para in param_grid:
+            config = Configuration(para)
 
-        comb_train, comb_vali, comb_test = collect_datasets(config) 
+            comb_train, comb_vali, comb_test = collect_datasets(config) 
 
-        train_loader, vali_loader, test_loader = create_loaders(comb_train,
-                                                                comb_vali,
-                                                                comb_test,
-                                                                batch_size=config.batch_size)
+            train_loader, vali_loader, test_loader = create_loaders(comb_train,
+                                                                    comb_vali,
+                                                                    comb_test,
+                                                                    batch_size=config.batch_size)
 
-        if args.task == 'train':
             task = Training(config)
             task.train(train_loader, vali_loader)
+            task.test(test_loader)
 
-            task.test(test_loader)
-        elif args.task == 'test':
-            task = Test(config)
-            task.test(test_loader)
-        else:
-            print('No valid task')
+    elif args.task == 'eval':
+        task = Eval(config)
+        task.test(test_loader)
+    else:
+        print('No valid task')
 
     end_time = datetime.datetime.now()
     print(f"start time: {start_time}")

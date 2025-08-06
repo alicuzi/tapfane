@@ -22,10 +22,9 @@ import matplotlib.pyplot as plt
 
 ''' Local Libraries '''
 from model.crossformer import Crossformer
-from utils.tools import EarlyStopping, adjust_learning_rate
 from utils.metrics import metric
 
-class Test(object):
+class Eval(object):
     def __init__(self, args):
         self.args = args
         self.device = self._acquire_device()
@@ -40,10 +39,10 @@ class Test(object):
 
     def _acquire_device(self):
         if self.args.use_gpu:
-            device = torch.device(f'cuda:{self.args.gpu}')
+            self.device = torch.device(f'cuda:{self.args.gpu}')
             print(f'use gpu: cuda:{self.args.gpu}')
         else:
-            device = torch.device('cpu')
+            self.device = torch.device('cpu')
             print('use cpu')
 
     def _build_model(self):

@@ -17,6 +17,7 @@ from sklearn.preprocessing import StandardScaler
 import pandas as pd
 import numpy as np
 import torch
+import datetime
 
 
 ''' Local Libraries '''
@@ -214,3 +215,98 @@ class StationDataset_shift(torch.utils.data.Dataset):
     
     def inverse_transform(self, data):
         return self.scaler.inverse_transform(data)
+
+
+class EvalStationDataset(torch.utils.data.Dataset):
+    def __init__(self, args,
+                 spatial_stats,
+                 date
+                 ) -> None:
+        super().__init__()
+
+        self.spatial_stats = spatial_stats
+        self.station_code = args.station_code
+        self.start_date = args.start_date
+        self.end_date = args.end_date
+        self.path = args.root_path + args.data_path
+        self.path_to_meta = args.root_path + args.meta_path
+        self.scale = True
+        self.date = date
+
+        ''' Set sequence lenghts'''
+        self.seq_len = 96
+        self.pred_len = 48
+
+        ''' Set Scaler '''
+        self.scaler = StandardScaler()
+
+        ''' Read Data '''
+        self.__read_data__()
+
+    def __read_data__(self):
+
+        ''' Retrieve Dataset '''
+        original_df = pd.read_csv(self.path + self.station_code + '_data.csv')
+
+        ''' Define bounds for sequences '''
+        if self.date == None:
+            st_date = datetime.datetime(int(self.start_date['year']),
+                                        int(self.start_date['month']),
+                                        int(self.start_date['day']),0,0)
+        else:
+            st_date = self.date
+        print(f'Retrieving data for date {st_date}')
+
+        idx = original_df.loc[original_df['time']==str(st_date)].index[0]
+        segment = original_df.iloc[idx-96:idx+48] # input/output vector
+
+        ''' Scale Data '''
+        train_data = original_df.iloc[:idx,1:] # do not consider time column
+        self.scaler.fit(train_data.values)
+        if self.scale == True:
+            data = self.scaler.transform(segment.iloc[:,1:].values) # do not consider time column
+        else:
+            data = segment.values
+
+        ''' Store stats '''
+        ''' Standard scaler '''
+        self.mean = self.scaler.mean_
+        self.std = self.scaler.scale_
+
+        ''' Shift features '''
+
+        ''' Store data '''
+        #self.data_x = data[border1:border2]
+        ''' shift data_x so that cams+meteo are shifted forward '''
+        self.data_x = np.hstack([
+            data[24:24+self.seq_len,:-1], # all but last feature (concentration) are shifted forward
+            np.expand_dims(data[:self.seq_len,-1],axis=1)]) # last feature (concentration) is cut to fit dataset dim
+
+        # #self.data_y = data[border1:border2,0] # take target feature only
+        self.data_y = data[:] # take all features and select target feature in the optimisation step
+
+        ''' Space features '''
+        metadata = pd.read_csv(self.path_to_meta)
+        geo = metadata[['longitude','latitude','altitude']].loc[metadata['code'] == self.station_code]
+        # define and store spacefeatures
+        s_features = space_features(geo,self.spatial_stats)
+        self.spacefeatures = s_features
+
+    
+    def __getitem__(self, index):
+        s_begin = index
+        s_end = s_begin + self.seq_len
+        r_begin = s_end
+        r_end = r_begin + self.pred_len
+
+        seq_x = self.data_x[s_begin:s_end]
+        seq_y = self.data_y[r_begin:r_end]
+
+        return seq_x, seq_y, self.spacefeatures, self.mean, self.std       
+    
+    
+    def __len__(self):
+        return len(self.data_x) # - self.seq_len - self.pred_len + 1
+    
+    def name(self):
+        return self.name
