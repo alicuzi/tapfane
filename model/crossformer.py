@@ -80,10 +80,12 @@ class Crossformer(nn.Module):
         if self.proj_layer:
             predict_y = self.norm(predict_y)
             predict_y = self.proj(predict_y).squeeze()
-            # print(predict_y.shape)
-            # print(predict_y.squeeze())#.squeeze())
-            # print(predict_y.squeeze().shape)
-            #return base + predict_y[:, :self.out_len, :]
+
+            ''' NOTE: dimension mismatch for 1 sample only, 
+            no need to squeeze predict_y in crossformer forward call '''
+            if predict_y.shape[0] != 1:
+                predict_y = predict_y.squeeze()
+
             return predict_y[:, :self.out_len]
         else:
             return predict_y[:, :self.out_len, -1]

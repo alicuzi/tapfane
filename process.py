@@ -49,8 +49,10 @@ def main():
     ''' Parser '''
     parser = argparse.ArgumentParser(description='Adapted Crossformer process')
     parser.add_argument('--task', type=str, default='train', help='definition of task (train,eval)')
-    parser.add_argument('--start_date',type=dict,default=start)
-    parser.add_argument('--end_date',type=dict,default=end)
+    parser.add_argument('--start_date',type=dict,default=start, help='start date for evaluation')
+    parser.add_argument('--end_date',type=dict,default=end, help='end date for evaluation')
+    parser.add_argument('--station_code', type=str, default='SPO-SE0003A 00005 100')
+
 
     args = parser.parse_args()
 
@@ -72,8 +74,18 @@ def main():
             task.test(test_loader)
 
     elif args.task == 'eval':
+        ''' load configuration parameters '''
+        param_grid = create_param_grid()
+        config = Configuration(para)
+        config.start_date = args.start_date
+        config.end_date = args.end_date
+        config.station_code = args.station_code
+
+        ''' define task '''
         task = Eval(config)
-        task.test(test_loader)
+
+        # task.test(test_loader)
+        task.evaluate(test_loader)
     else:
         print('No valid task')
 
