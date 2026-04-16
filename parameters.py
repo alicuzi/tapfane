@@ -9,7 +9,7 @@ Multiple choices of hyperparameters can be selected to perform hyperparameter tu
 __author__ = "Alice Cuzzucoli"
 __copyright__ = "2025, Project ArcticPASSION, Institute of Atmospheric Pollution Research - National Research Council of Italy (CNR-IIA)"
 __date__ = "2025/07/31"
-__licence__ = ""
+__licence__ = "MIT"
 __status__ = "Production"
 
 import itertools
