@@ -5,7 +5,7 @@
 This script performs evaluation of PM10 forecast with the pretrained model
 '''
 
-__author__ = "Alice Cuzzucoli"
+__author__ = "Alice Cuzzucoli, Ilaria Crotti, Srdjan Dobricic and Antonello Pasini"
 __copyright__ = "2025, Project ArcticPASSION, Institute of Atmospheric Pollution Research - National Research Council of Italy (CNR-IIA)"
 __date__ = "2025/07/31"
 __licence__ = "MIT"

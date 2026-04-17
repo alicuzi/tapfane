@@ -1,3 +1,8 @@
+'''
+This script mainly contains code from original Crossformer paper (https://openreview.net/forum?id=vSVLM2j9eie)
+with integrated choice of Geometric Segment-Wise Embedding.
+'''
+
 ''' Python Libraries '''
 import torch
 import torch.nn as nn

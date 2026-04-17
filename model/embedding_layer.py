@@ -1,3 +1,14 @@
+'''
+This script mainly contains code from original Crossformer paper (https://openreview.net/forum?id=vSVLM2j9eie)
+with integrated choice of Geometric Segment-Wise Embedding.
+'''
+
+__author__ = "Alice Cuzzucoli, Ilaria Crotti, Srdjan Dobricic and Antonello Pasini"
+__copyright__ = "2025, Project ArcticPASSION, Institute of Atmospheric Pollution Research - National Research Council of Italy (CNR-IIA)"
+__date__ = "2025/07/31"
+__licence__ = "MIT"
+__status__ = "Production"
+
 import torch
 import torch.nn as nn
 import torch.nn.functional as F

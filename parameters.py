@@ -6,7 +6,7 @@ This script manages model hyperparamenters configuration and paths needed for th
 Multiple choices of hyperparameters can be selected to perform hyperparameter tuning.
 '''
 
-__author__ = "Alice Cuzzucoli"
+__author__ = "Alice Cuzzucoli, Ilaria Crotti, Srdjan Dobricic and Antonello Pasini"
 __copyright__ = "2025, Project ArcticPASSION, Institute of Atmospheric Pollution Research - National Research Council of Italy (CNR-IIA)"
 __date__ = "2025/07/31"
 __licence__ = "MIT"

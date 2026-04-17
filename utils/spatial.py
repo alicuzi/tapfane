@@ -5,7 +5,7 @@
 This script defines how spatial features are collected and rescaled to fit the Geometric Dimension-Wise Embedding
 '''
 
-__author__ = "Alice Cuzzucoli"
+__author__ = "Alice Cuzzucoli, Ilaria Crotti, Srdjan Dobricic and Antonello Pasini"
 __copyright__ = "2025, Project ArcticPASSION, Institute of Atmospheric Pollution Research - National Research Council of Italy (CNR-IIA)"
 __date__ = "2025/07/31"
 __licence__ = ""
@@ -17,18 +17,6 @@ import pandas as pd
 
 
 def spatial_stats(meta):
-    #meta = pd.read_csv(path_to_meta)
-    # # latitude stats
-    # lat_mean = meta['latitude'].values.mean()
-    # lat_range = meta['latitude'].values.max() - meta['latitude'].values.min()
-
-    # # longitude stats
-    # lon_mean = meta['longitude'].values.mean()
-    # lon_range = meta['longitude'].values.max() - meta['longitude'].values.min()
-
-    # # altitude stats
-    # alt_mean = meta['altitude'].values.mean()
-    # alt_range = meta['altitude'].values.max() - meta['altitude'].values.min()
 
     # latitude stats
     lat_mean = meta['Latitude'].values.mean()

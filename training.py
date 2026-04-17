@@ -7,7 +7,7 @@ Within the class, model with specific configuration is loaded, loss and optimise
 checkpoints are saved and results are logged.
 '''
 
-__author__ = "Alice Cuzzucoli"
+__author__ = "Alice Cuzzucoli, Ilaria Crotti, Srdjan Dobricic and Antonello Pasini"
 __copyright__ = "2025, Project ArcticPASSION, Institute of Atmospheric Pollution Research - National Research Council of Italy (CNR-IIA)"
 __date__ = "2025/07/31"
 __licence__ = ""

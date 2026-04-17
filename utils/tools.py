@@ -1,3 +1,8 @@
+'''
+This script mainly contains code from original Crossformer paper (https://openreview.net/forum?id=vSVLM2j9eie).
+'''
+
+
 ''' Python Libraries '''
 import numpy as np
 import torch
