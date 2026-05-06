@@ -1,12 +1,14 @@
 # A Transformer Approach to Air Pollution Forecast for the Arctic and Northern Europe
 Cuzzucoli A., Crotti I., Dobricic S., Pasini A.
 
-This repository shows the supporting code for the manuscript, available at 
+This repository shows the supporting code for the manuscript available at:
 
-    npj link/doi
+    https://doi.org/10.1038/s44407-026-00071-8
 
 # Summary
-We developed a Deep Learning model to predict 48h local concentrations of $\textrm{PM}_{10}$ at monitoring stations sites across Northern Europe. We considered historical time-series data from the European Enviromental Agency and hourly forecasts of $\textrm{PM}_{10}$ and meteorological variables from the Copernicus Atmosphere Monitoring Service.
+We developed a Deep Learning model to predict 48h local concentrations of $\textrm{PM}_{10}$ at monitoring stations sites across Northern Europe. 
+
+We considered historical time-series data from the European Enviromental Agency and hourly forecasts of $\textrm{PM}_{10}$ and meteorological variables from the Copernicus Atmosphere Monitoring Service.
 
 # Data
 Data was collected from 152 monitoring stations across Northern Europe.
@@ -68,17 +70,13 @@ The Adapted Crossformer represents an enhancement of the original [Crossformer](
 
 To train Adapted Crossformer on sample station with standard parameters:
 
-<code>
-python process.py
-</code>
+    python process.py
 
 Configurations and Gridsearch for tuning can be set in [parameters](/parameters.py).
 
 To evaluate model performance using pretrained weights from 1/1/2024 to 4/12/2024:
 
-<code>
-python process.py --eval
-</code>
+    python process.py --eval
 
 Start and end date can be selected by setting process arguments <code>--start_date \[dict]</code> and <code>--end_date \[dict]</code>.
 
@@ -86,14 +84,47 @@ Pretrained weights of Adapted Crossformer with optimised parameters can be found
 
 # How to cite
 
-Manuscript 
+Manuscript
 
+    Cuzzucoli, A., Crotti, I., Dobricic, S. et al. A transformer approach to forecasting PM10 concentration in the Arctic and Northern Europe. npj Clean Air 2, 31 (2026). https://doi.org/10.1038/s44407-026-00071-8
 
-    bibtext
+Bibtex
 
-
-
+    @ARTICLE{Cuzzucoli2026-yn,
+      title     = "A transformer approach to forecasting {PM10} concentration in
+                   the Arctic and Northern Europe",
+      author    = "Cuzzucoli, Alice and Crotti, Ilaria and Dobricic, Srdjan and
+                   Pasini, Antonello",
+      abstract  = "Abstract Air pollution is reckoned as one of the main critical
+                   factors in risks related to human health as well as to the
+                   environment, especially in key areas like the Arctic, where
+                   global warming is affecting the ecosystem at an alarming rate.
+                   Major pollutants, such as Particulate Matter (PM 10 ), are thus
+                   crucial to monitor for efficient planning ahead of extreme
+                   events: to that extent, a reliable short to medium-term forecast
+                   is vital for prompt action. We propose a Deep Learning approach
+                   to air pollution forecasting aimed at predicting 48-h
+                   concentrations of PM 10 . We analyse the behaviour of said
+                   pollutant together with auxiliary factors, such as
+                   meteorological variables and outputs from state-of-the-art
+                   numerical models, through several forefront
+                   time-series-specialised architectures, i.e. Transformers. We
+                   develop an enhanced version of the best-performing Transformer
+                   architecture to define a suitable model to forecast PM 10
+                   concentrations from a wide variety of stations across Northern
+                   Europe. Our proposed methodology manages to outperform pivotal
+                   numerical models and associated postprocessing, offering a
+                   valuable alternative for local air pollution forecasting.",
+      journal   = "NPJ Clean Air",
+      publisher = "Springer Science and Business Media LLC",
+      volume    =  2,
+      number    =  1,
+      month     =  may,
+      year      =  2026,
+      copyright = "https://creativecommons.org/licenses/by/4.0",
+      language  = "en"
+    }
 
 Code
 
-    zeonodo
+    https://doi.org/10.5281/zenodo.19354381
